@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Registrar Médico</title>
+</head>
+<body>
+<h1>Registrar Nuevo Médico</h1>
+<form action="/vistas/registrarMedico" method="post">
+    <label for="nomt2">Nombre:</label><br />
+    <input type="text" id="nomt2" name="nomt2" required /><br /><br />
+
+    <label for="apellidot2">Apellido:</label><br />
+    <input type="text" id="apellidot2" name="apellidot2" required /><br /><br />
+
+    <label for="emailt2">Email:</label><br />
+    <input type="email" id="emailt2" name="emailt2" required /><br /><br />
+
+    <label for="dnit2">DNI:</label><br />
+    <input type="text" id="dnit2" name="dnit2" required /><br /><br />
+
+    <label for="estadodoc">Estado Documento:</label><br />
+    <input type="text" id="estadodoc" name="estadodoc" required /><br /><br />
+
+    <label for="fechanac">Fecha de Nacimiento:</label><br />
+    <input type="date" id="fechanac" name="fechanac" required /><br /><br />
+
+    <button type="submit">Registrar Médico</button>
+</form>
+
+<br />
+<a href="/vistas/ListadoMedico">Volver al listado</a>
+</body>
+</html>

@@ -1,5 +1,9 @@
 package com.bd.jpa.repositorio;
 
-public interface IMedicoRepositorio {
+import org.springframework.data.repository.CrudRepository;
+
+import com.bd.jpa.modelo.TblMedico;
+
+public interface IMedicoRepositorio extends CrudRepository<TblMedico,Integer> {
 
 }
