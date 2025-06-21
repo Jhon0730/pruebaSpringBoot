@@ -24,13 +24,13 @@ public class MedicoController {
  public String listadoMedico(Model modelo) {
   List<TblMedico> listaMedicos = imedicoservicio.ListadoMedico();
   modelo.addAttribute("medicos", listaMedicos);
-  return "listadoMedico";
+  return "vistas/listadoMedico";
  }
 
  @GetMapping("registrarMedico")
  public String mostrarFormularioRegistro(Model modelo) {
   modelo.addAttribute("medico", new TblMedico());
-  return "registrarMedico";
+  return "vistas/registrarMedico";
  }
 
  @PostMapping("registrarMedico")
