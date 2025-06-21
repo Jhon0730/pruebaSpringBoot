@@ -4,17 +4,51 @@
     <meta charset="UTF-8" />
     <title>Listado de Médicos</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+            color: #333;
         }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
         th, td {
-            border: 1px solid #999;
-            padding: 8px;
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
             text-align: left;
         }
+
         th {
-            background-color: #eee;
+            background-color: #34495e;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
         }
     </style>
 </head>
@@ -34,7 +68,6 @@
     </tr>
     </thead>
     <tbody>
-    <!-- Iterar sobre la lista de médicos -->
     <tr th:each="medico : ${medicos}">
         <td th:text="${medico.idmedico}">1</td>
         <td th:text="${medico.nomt2}">Nombre</td>
