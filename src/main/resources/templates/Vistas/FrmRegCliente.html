@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Cliente</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://scontent.flim2-2.fna.fbcdn.net/v/t39.30808-6/449786601_1008536607945872_2181997208535490316_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeE_ZiAfq-a_2hBeIcZ4yCvUXgBEZEwNVsleAERkTA1WyTpVK4l6pUv5cGKHl7livEaWmeqRfSVVnwmW97i-XHJS&_nc_ohc=G2QTUvrinaoQ7kNvwERlexv&_nc_oc=Adkq7X5VGC8yxm9e4ESEJ4Fcq6miQX8GS6NdIq5ao8pG3Os5aacJvN2QZfIp1OU3d6nrsMUx5cBBrM6gh81hMN0h&_nc_zt=23&_nc_ht=scontent.flim2-2.fna&_nc_gid=i6VlML3ELqSeg6zAA-nLfA&oh=00_AfOAuSUtSy3PxvFh7PTnT7lCPtX99dK44a8x1plPHvPRDA&oe=686CE1EF">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin: auto;
+        }
+        .form-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 0.95rem;
+        }
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            outline: none;
+        }
+        .form-select {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            font-size: 0.95rem;
+        }
+        .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            outline: none;
+        }
+        .btn-success {
+            background: #28a745;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .button-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        .form-error {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+        @media (max-width: 576px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+            .form-title {
+                font-size: 1.5rem;
+            }
+            .form-group label {
+                font-size: 0.9rem;
+            }
+            .form-control, .form-select {
+                font-size: 0.9rem;
+            }
+            .button-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .btn-success, .btn-secondary {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2 class="form-title" th:text="${cliente.idcliente != null} ? 'Editar Cliente' : 'Registrar Nuevo Cliente'">Registrar Nuevo Cliente</h2>
+
+    <form th:action="@{/vistas/clientes/guardar}" th:object="${cliente}" method="post">
+        <!-- Campo oculto para origen -->
+        <input type="hidden" name="from" th:value="${from}" />
+        <input type="hidden" th:field="*{idcliente}"/>
+
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Ingrese el nombre">
+            <div th:if="${#fields.hasErrors('nombre')}" class="form-error" th:errors="*{nombre}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" class="form-control" id="apellido" th:field="*{apellido}" placeholder="Ingrese el apellido">
+            <div th:if="${#fields.hasErrors('apellido')}" class="form-error" th:errors="*{apellido}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="dni">DNI</label>
+            <input type="text" class="form-control" id="dni" th:field="*{dni}" placeholder="Ingrese el DNI">
+            <div th:if="${#fields.hasErrors('dni')}" class="form-error" th:errors="*{dni}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="sexo">Sexo</label>
+            <select class="form-select" id="sexo" th:field="*{sexo}">
+                <option value="">Seleccione</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+            </select>
+            <div th:if="${#fields.hasErrors('sexo')}" class="form-error" th:errors="*{sexo}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="telf">Teléfono</label>
+            <input type="text" class="form-control" id="telf" th:field="*{telf}" placeholder="Ingrese el teléfono">
+            <div th:if="${#fields.hasErrors('telf')}" class="form-error" th:errors="*{telf}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="nacionalidad">Nacionalidad</label>
+            <input type="text" class="form-control" id="nacionalidad" th:field="*{nacionalidad}" placeholder="Ingrese la nacionalidad">
+            <div th:if="${#fields.hasErrors('nacionalidad')}" class="form-error" th:errors="*{nacionalidad}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="Ingrese el correo electrónico">
+            <div th:if="${#fields.hasErrors('email')}" class="form-error" th:errors="*{email}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="Ingrese la contraseña">
+            <div th:if="${#fields.hasErrors('password')}" class="form-error" th:errors="*{password}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="rol">Rol</label>
+            <select class="form-select" id="rol" th:field="*{rol}">
+                <option value="">Seleccione</option>
+                <option value="Admin">Admin</option>
+                <option value="Cliente">Cliente</option>
+            </select>
+            <div th:if="${#fields.hasErrors('rol')}" class="form-error" th:errors="*{rol}"></div>
+        </div>
+
+        <div class="button-group">
+            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
+            <a th:href="@{/}" class="btn btn-secondary"><i class="fas fa-times"></i> Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
